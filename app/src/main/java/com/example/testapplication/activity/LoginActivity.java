@@ -6,12 +6,15 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.testapplication.MainActivity;
 import com.example.testapplication.R;
 import com.example.testapplication.bena.LoginBean;
@@ -95,7 +98,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void beforeLayout() {
-
+        String userId = SpUtil.getInstance().getString("userId");
+        Log.d(TAG,userId);
     }
 
     @Override

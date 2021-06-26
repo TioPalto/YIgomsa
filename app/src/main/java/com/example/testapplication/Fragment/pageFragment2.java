@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class pageFragment2 extends BaseFragment {
-    private static final String TAG = "MainSubFragment";
+    private static final String TAG = "TAB2";
 
     private SubsItemAdapter mAdapter;
 

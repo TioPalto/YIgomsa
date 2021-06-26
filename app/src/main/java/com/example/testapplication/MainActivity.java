@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -69,6 +70,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         textView1 = (TextView) findViewById(R.id.id_tab_text1);
         textView2 = (TextView) findViewById(R.id.id_tab_text2);
         textView3 = (TextView) findViewById(R.id.id_tab_text3);
+
+
 
     }
 
@@ -148,6 +151,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         textView1.setTextColor(getResources().getColor(R.color.text_color));
         textView2.setTextColor(getResources().getColor(R.color.text_color));
         textView3.setTextColor(getResources().getColor(R.color.text_color));
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

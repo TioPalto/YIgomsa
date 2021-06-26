@@ -1,6 +1,7 @@
 package com.example.testapplication.Fragment;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.example.testapplication.BaseFragment;
 import com.example.testapplication.R;
 import com.example.testapplication.activity.BuyRecordActivity;
 import com.example.testapplication.activity.ChargeRecordActivity;
+import com.example.testapplication.http.GoodShopMgr;
 import com.example.testapplication.util.SpUtil;
 import com.google.android.material.imageview.ShapeableImageView;
 

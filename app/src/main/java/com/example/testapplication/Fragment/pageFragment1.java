@@ -35,7 +35,7 @@ import java.util.Map;
 
 @SuppressLint("SetTextI18n")
 public class pageFragment1 extends BaseFragment {
-    private static final String TAG = "MainPageFragment";
+    private static final String TAG = "TAB1";
 
     private TextView txtGoodNum, txtGoodPrice;
     private Banner imgBanner;
