@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/dialog_white_angel_bg">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#303030"
+            android:textSize="14sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="#303030"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#bdbdbd"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_click_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#ba3a3a"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="取消"
+                android:layout_weight="1"/>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#bdbdbd"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_click_define"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#303030"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="确定"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

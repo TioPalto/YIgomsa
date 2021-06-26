@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_txt_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订单编号:"
+        android:textColor="@color/btn_blue"
+        android:textSize="14sp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_txt_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_txt_order"
+        android:layout_marginTop="8dp"
+        android:text="交易金额:"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_txt_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_txt_money"
+        android:layout_marginTop="8dp"
+        android:text="交易时间:"
+        android:textColor="@color/txt_light_gray_1"
+        android:textSize="13sp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_txt_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="50dp"
+        android:textColor="@color/btn_deeper_green"
+        android:textSize="16sp"
+        tools:ignore="RelativeOverlap" />
+
+</RelativeLayout>
