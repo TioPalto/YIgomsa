@@ -1,18 +1,24 @@
 package com.example.testapplication.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.testapplication.BaseFragment;
+import com.example.testapplication.MainActivity;
 import com.example.testapplication.R;
+import com.example.testapplication.activity.BuyRecordActivity;
+import com.example.testapplication.activity.ChargeRecordActivity;
 import com.example.testapplication.activity.OrderInfoActivity;
 import com.example.testapplication.adapter.BuyRecordListAdapter;
 import com.example.testapplication.bena.BuyListBean;
@@ -20,97 +26,44 @@ import com.example.testapplication.http.GsonUtil;
 import com.example.testapplication.http.OkHttpMgr;
 import com.example.testapplication.http.OkMsgCallback;
 import com.example.testapplication.util.SpUtil;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class pageFragment3 extends BaseFragment {
-    private static final String TAG = "MainOrderFragment";
-
-    private RadioButton radioSend, radioGet, radioFinish;
-    private RecyclerView recordList;
-    private TextView txtNull;
-    private BuyRecordListAdapter mAdapter;
-
-    private static final int UPDATE_LIST = 0x121;
-    private String status = "1";//1:代发货 2：待收获 3已完成
-
-    private final Handler mHandler = new Handler(msg -> {
-        if(msg.what == UPDATE_LIST) {
-            if(msg.obj == null) return false;
-            BuyListBean bean = (BuyListBean) msg.obj;
-            if(bean.getData() != null && !bean.getData().isEmpty()) {
-                mAdapter.setGoodList(bean.getData());
-                recordList.setVisibility(View.VISIBLE);
-                txtNull.setVisibility(View.GONE);
-            } else {
-                recordList.setVisibility(View.GONE);
-                txtNull.setVisibility(View.VISIBLE);
-            }
-        }
-        return false;
-    });
+    private TextView txtBalance, txtName, txtLevel;
+    private ShapeableImageView imgHead;
+    Button button;
 
     @Override
     protected void afterLayout() {
-        getOrderList();
+        setInfo();
     }
-
-    private final BuyRecordListAdapter.TypeItemClickListener itemClickListener = (position, bean) -> {
-        if(bean != null) {
-            String order = bean.getOrderNum();
-            Intent itn = new Intent(getActivity(), OrderInfoActivity.class);
-            itn.putExtra("orderNum", order);
-            startActivity(itn);
+    private void setInfo() {
+        if(SpUtil.getInstance().getString("name") != null) {
+            String userName = SpUtil.getInstance().getString("name");
+            txtName.setText(userName);
         }
-    };
+        txtLevel.setText("等级:11");
+        float balance = SpUtil.getInstance().getFloat("balance");
+        txtBalance.setText("余额:￥" + balance);
+        if(SpUtil.getInstance().getString("headImage") != null) {
+            String headUrl = SpUtil.getInstance().getString("headImage");
+            Glide.with(imgHead.getContext()).load(headUrl).into(imgHead);
+        }
+    }
 
     @Override
     protected void initView(View view) {
-        txtNull = view.findViewById(R.id.txt_data_null);
-        recordList = view.findViewById(R.id.record_list);
-        LinearLayoutManager layoutMgr = new LinearLayoutManager(recordList.getContext(),
-                LinearLayoutManager.VERTICAL, false);
-        recordList.setLayoutManager(layoutMgr);
-        mAdapter = new BuyRecordListAdapter(getContext());
-        recordList.setAdapter(mAdapter);
-        mAdapter.setTypeItemClickListener(itemClickListener);
-        radioSend = view.findViewById(R.id.radio_send);
-        radioGet = view.findViewById(R.id.radio_get);
-        radioFinish = view.findViewById(R.id.radio_finish);
-        radioSend.setOnClickListener(this);
-        radioGet.setOnClickListener(this);
-        radioFinish.setOnClickListener(this);
-        txtNull.setVisibility(View.GONE);
-    }
-
-
-    private void getOrderList() {
-        if(SpUtil.getInstance().getString("userId") == null) {
-            return;
-        }
-        String userId = SpUtil.getInstance().getString("userId");
-        Map<String, String> map = new HashMap<>();
-        map.put("userId", userId);
-        map.put("status", status);
-        String urlTag = "order/showByStatus";
-        OkHttpMgr.getInstance().postJson(urlTag, map, new OkMsgCallback() {
-            @Override
-            public void fail(String error) {
-                Log.e(TAG, "error:" + error);
-            }
-            @Override
-            public void success(int code, String body) {
-                //Log.e(TAG, "body:" + body);
-                if(code == 200) {
-                    BuyListBean bean = GsonUtil.inst().getTypeJson(body, BuyListBean.class);
-                    Message msg = mHandler.obtainMessage();
-                    msg.what = UPDATE_LIST;
-                    msg.obj = bean;
-                    mHandler.sendMessage(msg);
-                }
-            }
-        });
+        txtBalance = view.findViewById(R.id.txt_balance);
+        txtName = view.findViewById(R.id.mine_txt_name);
+        txtLevel = view.findViewById(R.id.mine_txt_level);
+        imgHead = view.findViewById(R.id.mine_img_head);
+        button = view.findViewById(R.id.btn_exit_login);
+        view.findViewById(R.id.btn_exit_login).setOnClickListener(this);
+        view.findViewById(R.id.click_buy_record).setOnClickListener(this);
+        view.findViewById(R.id.click_recharge_record).setOnClickListener(this);
     }
 
     @Override
@@ -120,23 +73,21 @@ public class pageFragment3 extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.radio_send) {
-            status = "1";
-            getOrderList();
+        if (v.getId() == R.id.btn_exit_login){
+            SpUtil.getInstance().save("isLogin", false);
+            SpUtil.getInstance().save("userId", null);
+            SpUtil.getInstance().save("name", null);
+            SpUtil.getInstance().save("headImage", null);
+            SpUtil.getInstance().save("phoneNum", null);
+            SpUtil.getInstance().save("balance", null);
+            getActivity().finish();
         }
-        if(v.getId() == R.id.radio_get) {
-            status = "2";
-            getOrderList();
+        if(v.getId() == R.id.click_buy_record) {
+            startActivity(new Intent(getActivity(), BuyRecordActivity.class));
         }
-        if(v.getId() == R.id.radio_finish) {
-            status = "3";
-            getOrderList();
+        if(v.getId() == R.id.click_recharge_record) {
+            startActivity(new Intent(getActivity(), ChargeRecordActivity.class));
         }
-    }
 
-    @Override
-    public void onDestroy() {
-        mHandler.removeCallbacksAndMessages(null);
-        super.onDestroy();
     }
 }

@@ -2,26 +2,19 @@ package com.example.testapplication.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testapplication.BaseFragment;
 import com.example.testapplication.R;
-import com.example.testapplication.activity.GoodInfoActivity;
 import com.example.testapplication.adapter.BannerImgAdapter;
 import com.example.testapplication.adapter.GoodListAdapter;
 import com.example.testapplication.adapter.GoodListAdapter.TypeItemClickListener;
@@ -71,14 +64,6 @@ public class pageFragment1 extends BaseFragment {
         getGoodList();
     }
     private final TypeItemClickListener itemClickListener = new TypeItemClickListener() {
-        @Override
-        public void onItemClick(int position, GoodListBean.GoodBean bean) {
-            String goodsId = bean.getGoodsId();
-            Intent itn = new Intent(getActivity(), GoodInfoActivity.class);
-            itn.putExtra("goodId",goodsId);
-            startActivity(itn);
-        }
-
         @Override
         public void onBuyClick(int position, GoodListBean.GoodBean bean) {
             if (bean!=null){

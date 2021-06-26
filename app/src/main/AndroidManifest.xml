@@ -23,12 +23,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.GoodInfoActivity"></activity>
         <activity android:name=".activity.SubsInfoActivity" />
         <activity android:name=".activity.OrderInfoActivity" />
         <activity android:name=".activity.ChargeRecordActivity" />
         <activity android:name=".activity.BuyRecordActivity" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.LoginActivity"
+            />
         <activity android:name=".GuideActivity" />
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
@@ -38,8 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask" />
+            android:name=".MainActivity"/>
     </application>
 
 </manifest>

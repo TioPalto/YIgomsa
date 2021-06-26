@@ -1,6 +1,8 @@
 package com.example.testapplication.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,17 +19,23 @@ import com.example.testapplication.http.GsonUtil;
 import com.example.testapplication.http.OkHttpMgr;
 import com.example.testapplication.http.OkMsgCallback;
 import com.example.testapplication.util.SpUtil;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity {
-    private String name = "admin";  //对应的用户名以及密码
-    private String password = "123456";
-    private EditText editText1;  //用户名输入
-    private EditText editText2;  //密码输入
     private static String TAG = "LoginActivity";
+
+    private ShapeableImageView imgHead;
+    private AppCompatEditText edUser, edPwd;
     private Button btnLogin;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
 
     @Override
     protected int contentLayout() {
@@ -38,28 +46,10 @@ public class LoginActivity extends BaseActivity {
     protected void afterInitView() {
 
     }
-
-    @Override
-    protected void initView() {
-        editText1 = (EditText) findViewById(R.id.login_name1);
-        editText2 = (EditText) findViewById(R.id.login_password1);
-        btnLogin = findViewById(R.id.login);
-        btnLogin.setOnClickListener(this);
-        ActionBar actionbar = getSupportActionBar();
-        if (actionbar != null) {
-            actionbar.hide();
-        }
-    }
-
-    @Override
-    protected void beforeLayout() {
-
-    }
-
-    private void getHttpMsg() {
-        String inputName = editText1.getText().toString();
-        String inputPassword = editText2.getText().toString();
-        Map<String, String> map = new HashMap<>();
+    private void httpLogin(){
+        String inputName = edUser.getText().toString();
+        String inputPassword = edPwd.getText().toString();
+        Map<String,String> map = new HashMap<>();
         map.put("name",inputName);
         map.put("password",inputPassword);
         String urlTag = "user/loginAccount";
@@ -68,13 +58,15 @@ public class LoginActivity extends BaseActivity {
             public void fail(String error) {
                 Log.e(TAG, "error:" + error);
             }
+
             @Override
             public void success(int code, String body) {
-                //Log.e(TAG, "code:" + code);
-                //Log.e(TAG, "body:" + body);
                 if(code == 200) {
                     LoginBean bean = GsonUtil.inst().getTypeJson(body, LoginBean.class);
-                    startActivity(new Intent(LoginActivity.this.getBaseContext(), MainActivity.class));
+//                    startActivity(new Intent(LoginActivity.this.getBaseContext(), MainActivity.class));
+//                    startActivityForResult(LoginActivity.this.getBaseContext(),MainActivity.class,1);
+                    Intent intent = new Intent(LoginActivity.this.getBaseContext(),MainActivity.class);
+                    startActivityForResult(intent,1);
                     SpUtil.getInstance().save("isLogin", true);
                     //持久化保存登录数据
                     if(bean.getData() != null) {
@@ -89,13 +81,46 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void initView() {
+        imgHead = findViewById(R.id.img_login_head);
+        edUser = findViewById(R.id.ed_login_user);
+        edPwd = findViewById(R.id.ed_login_pwd);
+        btnLogin = findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(this);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.hide();
+        }
+    }
+
+    @Override
+    protected void beforeLayout() {
 
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.login) {
-            getHttpMsg();
+        String inputName = edUser.getText().toString();
+        String inputPassword = edPwd.getText().toString();
+        if(v.getId() == R.id.btn_login) {
+            if (inputName.equals("") && inputPassword.equals("")){
+                Toast.makeText(LoginActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+            } else if (inputName.equals("") || inputPassword.equals("")){
+                Toast.makeText(LoginActivity.this, "请输入用户名或密码", Toast.LENGTH_SHORT).show();
+            } else {
+                httpLogin();
+            }
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        edPwd.setText("");
+        edUser.setText("");
     }
 }

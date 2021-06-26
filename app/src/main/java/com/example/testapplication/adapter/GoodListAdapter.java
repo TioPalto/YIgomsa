@@ -44,13 +44,6 @@ public class GoodListAdapter extends RecyclerView.Adapter<GoodListAdapter.GoldHo
                 inflate(R.layout.item_good_list, parent, false);
         GoldHolder holder = new GoldHolder(view);
         holder.getAdapterPosition();
-        view.setOnClickListener(v ->{
-            int position = holder.getAdapterPosition();
-            GoodListBean.GoodBean bean = mList.get(position);
-            if (typeItemClickListener!=null){
-                typeItemClickListener.onItemClick(position,bean);
-            }
-        });
         holder.btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +76,6 @@ public class GoodListAdapter extends RecyclerView.Adapter<GoodListAdapter.GoldHo
         this.typeItemClickListener = listener;
     }
     public interface TypeItemClickListener {
-        void onItemClick(int position, GoodListBean.GoodBean bean);
         void onBuyClick(int position, GoodListBean.GoodBean bean);
     }
     @Override

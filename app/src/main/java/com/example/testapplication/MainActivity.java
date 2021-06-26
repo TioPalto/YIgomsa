@@ -1,41 +1,44 @@
 package com.example.testapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.testapplication.Fragment.pageFragment1;
 import com.example.testapplication.Fragment.pageFragment2;
 import com.example.testapplication.Fragment.pageFragment3;
-import com.example.testapplication.Fragment.pageFragment4;
-import com.example.testapplication.activity.BaseActivity;
+import com.example.testapplication.util.SpUtil;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     private LinearLayout mTab1;
     private LinearLayout mTab2;
     private LinearLayout mTab3;
-    private LinearLayout mTab4;
 
     //声明四个Tab的ImageButton
     private ImageButton mImg1;
     private ImageButton mImg2;
     private ImageButton mImg3;
-    private ImageButton mImg4;
 
     //声明四个Tab分别对应的Fragment
     private Fragment mFrag1;
     private Fragment mFrag2;
     private Fragment mFrag3;
-    private Fragment mFrag4;
+
+    private TextView textView1;
+    private TextView textView2;
+    private TextView textView3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTab1.setOnClickListener(this);
         mTab2.setOnClickListener(this);
         mTab3.setOnClickListener(this);
-        mTab4.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -60,13 +62,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTab1 = (LinearLayout) findViewById(R.id.id_tab1);
         mTab2 = (LinearLayout) findViewById(R.id.id_tab2);
         mTab3 = (LinearLayout) findViewById(R.id.id_tab3);
-        mTab4 = (LinearLayout) findViewById(R.id.id_tab4);
 
         //初始化四个ImageButton
         mImg1 = (ImageButton) findViewById(R.id.id_tab_img1);
         mImg2 = (ImageButton) findViewById(R.id.id_tab_img2);
         mImg3 = (ImageButton) findViewById(R.id.id_tab_img3);
-        mImg4 = (ImageButton) findViewById(R.id.id_tab_img4);
+
+
+        textView1 = (TextView) findViewById(R.id.id_tab_text1);
+        textView2 = (TextView) findViewById(R.id.id_tab_text2);
+        textView3 = (TextView) findViewById(R.id.id_tab_text3);
+
     }
 
     @Override
@@ -81,9 +87,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.id_tab3:
                 selectTab(2);
-                break;
-            case R.id.id_tab4:
-                selectTab(3);
                 break;
         }
 
@@ -101,7 +104,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             //当选中点击的是第一页的Tab时
             case 0:
                 //设置第一页的ImageButton为绿色
-                mImg1.setImageResource(R.drawable.store_select);
+                mImg1.setImageResource(R.mipmap.main_selected);
+                textView1.setTextColor(getResources().getColor(R.color.txt_deeper_green));
                 //如果第一页对应的Fragment没有实例化，则进行实例化，并显示出来
                 if (mFrag1 == null) {
                     mFrag1 = new pageFragment1();
@@ -112,7 +116,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
                 break;
             case 1:
-                mImg2.setImageResource(R.drawable.book_select);
+                mImg2.setImageResource(R.mipmap.subs_selected);
+                textView2.setTextColor(getResources().getColor(R.color.txt_deeper_green));
                 if (mFrag2 == null) {
                     mFrag2 = new pageFragment2();
                     transaction.add(R.id.id_content, mFrag2);
@@ -121,21 +126,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
                 break;
             case 2:
-                mImg3.setImageResource(R.drawable.order_select);
+                mImg3.setImageResource(R.mipmap.mine_select);
+                textView3.setTextColor(getResources().getColor(R.color.txt_deeper_green));
                 if (mFrag3 == null) {
                     mFrag3 = new pageFragment3();
                     transaction.add(R.id.id_content, mFrag3);
                 } else {
                     transaction.show(mFrag3);
-                }
-                break;
-            case 3:
-                mImg4.setImageResource(R.drawable.person_select);
-                if (mFrag4 == null) {
-                    mFrag4 = new pageFragment4();
-                    transaction.add(R.id.id_content, mFrag4);
-                } else {
-                    transaction.show(mFrag4);
                 }
                 break;
         }
@@ -154,19 +151,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (mFrag3 != null) {
             transaction.hide(mFrag3);
         }
-        if (mFrag4 != null) {
-            transaction.hide(mFrag4);
-        }
     }
 
     //将四个ImageButton置为灰色
     private void resetImgs() {
-        mImg1.setImageResource(R.drawable.store_normal);
-        mImg2.setImageResource(R.drawable.book_normal);
-        mImg3.setImageResource(R.drawable.order_normal);
-        mImg4.setImageResource(R.drawable.person_normal);
+        mImg1.setImageResource(R.mipmap.main_unselected);
+        mImg2.setImageResource(R.mipmap.subs_unselected);
+        mImg3.setImageResource(R.mipmap.mine_unselected);
+        textView1.setTextColor(getResources().getColor(R.color.text_color));
+        textView2.setTextColor(getResources().getColor(R.color.text_color));
+        textView3.setTextColor(getResources().getColor(R.color.text_color));
     }
-
 
 
 }

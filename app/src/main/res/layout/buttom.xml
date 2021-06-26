@@ -18,9 +18,10 @@
             android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/store_normal"
+            android:src="@mipmap/main_unselected"
             android:background="#00000000"/>
         <TextView
+            android:id="@+id/id_tab_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#A6A6A6"
@@ -40,9 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@drawable/book_normal"
+            android:src="@mipmap/subs_unselected"
             android:background="#00000000"/>
         <TextView
+            android:id="@+id/id_tab_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#A6A6A6"
@@ -61,30 +63,10 @@
             android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/order_normal"
+            android:src="@mipmap/mine_unselected"
             android:background="#00000000"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#A6A6A6"
-            android:text="订单"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/id_tab4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/id_tab_img4"
-            android:clickable="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/person_normal"
-            android:background="#00000000"/>
-        <TextView
+            android:id="@+id/id_tab_text3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#A6A6A6"
