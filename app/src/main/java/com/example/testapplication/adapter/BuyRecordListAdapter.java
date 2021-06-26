@@ -55,16 +55,6 @@ public class BuyRecordListAdapter extends RecyclerView.Adapter<BuyRecordListAdap
         }
     }
 
-    private TypeItemClickListener typeItemClickListener;
-
-    public void setTypeItemClickListener(TypeItemClickListener listener) {
-        this.typeItemClickListener = listener;
-    }
-
-    public interface TypeItemClickListener {
-        void onItemClick(int position, BuyRecord bean);
-    }
-
     @Override
     public void onBindViewHolder(@NonNull @NotNull BuyHolder holder, int position) {
         if(mList.size() > position) {
@@ -86,6 +76,16 @@ public class BuyRecordListAdapter extends RecyclerView.Adapter<BuyRecordListAdap
                 holder.itemState.setTextColor(ContextCompat.getColor(mContext, R.color.big_red));
             }
         }
+    }
+
+    private TypeItemClickListener typeItemClickListener;
+
+    public void setTypeItemClickListener(TypeItemClickListener listener) {
+        this.typeItemClickListener = listener;
+    }
+
+    public interface TypeItemClickListener {
+        void onItemClick(int position, BuyRecord bean);
     }
 
     @Override

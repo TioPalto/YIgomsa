@@ -19,28 +19,23 @@ import java.util.List;
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected static final int REQUEST_PERMISSION_CODE = 199;
-    protected static final int REQUEST_CAMERA_CODE = 212;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        beforeLayout();//在setContentView前，若需要则实现具体业务逻辑
+        beforeLayout();
         setContentView(contentLayout());
         int stateBarHeight = StateBarUtil.getStatusBarHeight(this);
-        //Log.e("Base", "stateBarHeight=" + stateBarHeight);
         StateBarUtil.transparencyBar(this);
-        //StateBarUtil.setStateBarColor(this, R.color.white);
         StateBarUtil.setLightStatusBar(this, true, true);
         initView();
         afterInitView();
     }
 
-    //在setContentView前，若需要则实现具体业务逻辑
+
     protected abstract int contentLayout();
-    //在setContentView后，实现具体业务逻辑
     protected abstract void afterInitView();
     protected abstract void initView();
-    //setContentView需要的layoutId
     protected abstract void beforeLayout();
 
     protected void setLayoutPaddingTop() {
@@ -56,10 +51,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     protected void requestPermissions(String[] permissions) {
-        //大于6.0要动态申请权限
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             List<String> needList = new ArrayList<>();
-            //找出需要请求权限的权限
             for(int i = 0; i < permissions.length; i++) {
                 String perm = permissions[i];
                 if(!isPermissionChecked(perm)) {
@@ -73,7 +66,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    //判断是否有权限未通过
     protected boolean checkPermissions(String[] permissions) {
         if(permissions!= null && permissions.length > 0) {
             for(String perm : permissions) {
@@ -86,10 +78,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return false;
     }
 
-    //收集申请通过不正常的权限
     protected ArrayList<String> denyPermissionList = new ArrayList<>();
 
-    //查看某个权限是否已申请
     protected boolean isPermissionChecked(String permission) {
         int state = ActivityCompat.checkSelfPermission(this, permission);
         if(state == PackageManager.PERMISSION_GRANTED) {

@@ -29,7 +29,6 @@ public class GoodShopMgr {
         if(goodList.endsWith(";")) {
             goodList = goodList.substring(0, goodList.length()-1);
         }
-        //保存到SharedPreferences
         SpUtil.getInstance().save("goodList", goodList);
     }
     public String getGood(){

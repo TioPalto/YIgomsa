@@ -25,12 +25,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private LinearLayout mTab2;
     private LinearLayout mTab3;
 
-    //声明四个Tab的ImageButton
+
     private ImageButton mImg1;
     private ImageButton mImg2;
     private ImageButton mImg3;
 
-    //声明四个Tab分别对应的Fragment
+
     private Fragment mFrag1;
     private Fragment mFrag2;
     private Fragment mFrag3;
@@ -45,25 +45,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        initViews();//初始化控件
-        initEvents();//初始化事件
-        selectTab(0);//默认选中第一个Tab
+        initViews();
+        initEvents();
+        selectTab(0);
     }
 
     private void initEvents() {
-        //初始化四个Tab的点击事件
         mTab1.setOnClickListener(this);
         mTab2.setOnClickListener(this);
         mTab3.setOnClickListener(this);
     }
 
     private void initViews() {
-        //初始化四个Tab的布局文件
         mTab1 = (LinearLayout) findViewById(R.id.id_tab1);
         mTab2 = (LinearLayout) findViewById(R.id.id_tab2);
         mTab3 = (LinearLayout) findViewById(R.id.id_tab3);
 
-        //初始化四个ImageButton
         mImg1 = (ImageButton) findViewById(R.id.id_tab_img1);
         mImg2 = (ImageButton) findViewById(R.id.id_tab_img2);
         mImg3 = (ImageButton) findViewById(R.id.id_tab_img3);
@@ -77,7 +74,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        resetImgs(); //先将四个ImageButton置为灰色
+        resetImgs();
         switch (v.getId()) {
             case R.id.id_tab1:
                 selectTab(0);
@@ -92,26 +89,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    //进行选中Tab的处理
+
     private void selectTab(int i) {
-        //获取FragmentManager对象
         FragmentManager manager = getSupportFragmentManager();
-        //获取FragmentTransaction对象
         FragmentTransaction transaction = manager.beginTransaction();
-        //先隐藏所有的Fragment
         hideFragments(transaction);
         switch (i) {
-            //当选中点击的是第一页的Tab时
             case 0:
-                //设置第一页的ImageButton为绿色
                 mImg1.setImageResource(R.mipmap.main_selected);
                 textView1.setTextColor(getResources().getColor(R.color.txt_deeper_green));
-                //如果第一页对应的Fragment没有实例化，则进行实例化，并显示出来
                 if (mFrag1 == null) {
                     mFrag1 = new pageFragment1();
                     transaction.add(R.id.id_content, mFrag1);
                 } else {
-                    //如果第一页对应的Fragment已经实例化，则直接显示出来
                     transaction.show(mFrag1);
                 }
                 break;
@@ -136,11 +126,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
                 break;
         }
-        //不要忘记提交事务
         transaction.commit();
     }
 
-    //将四个的Fragment隐藏
     private void hideFragments(FragmentTransaction transaction) {
         if (mFrag1 != null) {
             transaction.hide(mFrag1);
@@ -153,7 +141,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    //将四个ImageButton置为灰色
     private void resetImgs() {
         mImg1.setImageResource(R.mipmap.main_unselected);
         mImg2.setImageResource(R.mipmap.subs_unselected);

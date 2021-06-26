@@ -30,7 +30,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-//        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -110,7 +109,6 @@ public class SplashActivity extends BaseActivity {
             }
         });
         imgSplash.startAnimation(anim);
-//        mHandler.sendEmptyMessageDelayed(101,2000);
     }
 
 

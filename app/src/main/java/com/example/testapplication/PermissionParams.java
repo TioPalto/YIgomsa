@@ -2,10 +2,8 @@ package com.example.testapplication;
 
 import android.Manifest;
 
-//需要动态申请的权限
-public class PermissionParams {
 
-    //需要动态申请的权限
+public class PermissionParams {
     public static final String READ_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
     public static final String WRITE_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final String READ_PHONE_STATE = Manifest.permission.READ_PHONE_STATE;

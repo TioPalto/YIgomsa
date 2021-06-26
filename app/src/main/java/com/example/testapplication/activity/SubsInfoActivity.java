@@ -42,7 +42,6 @@ public class SubsInfoActivity extends BaseActivity {
 
     @SuppressLint("SetTextI18n")
     private void updateViews(SubsInfoBean.SubsData data) {
-        //0.过期；1。接受；2。拒绝；3.未处理
         String status = data.getStatus();
         if(status.equals("0")) {
             txtSubState.setText("过期");
@@ -127,9 +126,4 @@ public class SubsInfoActivity extends BaseActivity {
         }
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_subs_info);
-//    }
 }

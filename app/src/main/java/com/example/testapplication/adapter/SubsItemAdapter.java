@@ -23,7 +23,7 @@ import java.util.List;
 public class SubsItemAdapter extends RecyclerView.Adapter<SubsItemAdapter.SubsHolder> implements View.OnClickListener {
     private Context mContext;
     private List<SubListBean.SubsData> mList;
-    private RecyclerView rvParent;//这是全局变量
+    private RecyclerView rvParent;
 
     public SubsItemAdapter(Context mContext) {
         this.mContext = mContext;

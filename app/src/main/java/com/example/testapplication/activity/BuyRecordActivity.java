@@ -27,7 +27,7 @@ public class BuyRecordActivity extends BaseActivity {
     private RadioButton radioTime, radioMoney;
     private BuyRecordListAdapter mAdapter;
 
-    private String valueBy = "createTime";//money/createTime，默认createTime
+    private String valueBy = "createTime";
     private static final int UPDATE_LIST = 0x121;
     private final Handler mHandler = new Handler(msg -> {
         if(msg.what == UPDATE_LIST) {
@@ -39,11 +39,7 @@ public class BuyRecordActivity extends BaseActivity {
         }
         return false;
     });
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_buy_record);
-//    }
+
 
     private void getBuyList() {
         if(SpUtil.getInstance().getString("userId") == null) {
@@ -52,7 +48,7 @@ public class BuyRecordActivity extends BaseActivity {
         String userId = SpUtil.getInstance().getString("userId");
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
-        map.put("orderBy", "1");//排序方式，正序“1”，倒序“0”
+        map.put("orderBy", "1");
         map.put("valueBy", valueBy );
         String urlTag = "order/show";
         OkHttpMgr.getInstance().postJson(urlTag, map, new OkMsgCallback() {
@@ -62,7 +58,6 @@ public class BuyRecordActivity extends BaseActivity {
             }
             @Override
             public void success(int code, String body) {
-                //Log.e(TAG, "body:" + body);
                 if(code == 200) {
                     BuyListBean bean = GsonUtil.inst().getTypeJson(body, BuyListBean.class);
                     Message msg = mHandler.obtainMessage();

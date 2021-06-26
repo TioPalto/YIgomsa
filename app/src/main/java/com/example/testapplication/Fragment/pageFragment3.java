@@ -1,35 +1,17 @@
 package com.example.testapplication.Fragment;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testapplication.BaseFragment;
-import com.example.testapplication.MainActivity;
 import com.example.testapplication.R;
 import com.example.testapplication.activity.BuyRecordActivity;
 import com.example.testapplication.activity.ChargeRecordActivity;
-import com.example.testapplication.activity.OrderInfoActivity;
-import com.example.testapplication.adapter.BuyRecordListAdapter;
-import com.example.testapplication.bena.BuyListBean;
-import com.example.testapplication.http.GsonUtil;
-import com.example.testapplication.http.OkHttpMgr;
-import com.example.testapplication.http.OkMsgCallback;
 import com.example.testapplication.util.SpUtil;
 import com.google.android.material.imageview.ShapeableImageView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class pageFragment3 extends BaseFragment {
     private TextView txtBalance, txtName, txtLevel;

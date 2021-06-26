@@ -63,12 +63,9 @@ public class LoginActivity extends BaseActivity {
             public void success(int code, String body) {
                 if(code == 200) {
                     LoginBean bean = GsonUtil.inst().getTypeJson(body, LoginBean.class);
-//                    startActivity(new Intent(LoginActivity.this.getBaseContext(), MainActivity.class));
-//                    startActivityForResult(LoginActivity.this.getBaseContext(),MainActivity.class,1);
                     Intent intent = new Intent(LoginActivity.this.getBaseContext(),MainActivity.class);
                     startActivityForResult(intent,1);
                     SpUtil.getInstance().save("isLogin", true);
-                    //持久化保存登录数据
                     if(bean.getData() != null) {
                         LoginBean.UserBean data = bean.getData();
                         SpUtil.getInstance().save("userId", data.getUserId());

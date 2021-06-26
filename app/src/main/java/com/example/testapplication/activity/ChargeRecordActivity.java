@@ -40,15 +40,6 @@ public class ChargeRecordActivity extends BaseActivity{
         return false;
     });
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_charge_record);
-//        ActionBar actionbar = getSupportActionBar();
-//        if (actionbar != null) {
-//            actionbar.hide();
-//        }
-//    }
 
     @Override
     protected int contentLayout() {

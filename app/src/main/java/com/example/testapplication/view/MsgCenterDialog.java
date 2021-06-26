@@ -12,10 +12,9 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.example.testapplication.R;
 
 public class MsgCenterDialog extends Dialog implements View.OnClickListener {
-
-    private String title;//标题，为空则隐藏标题控件
-    private String content;//正文内容
-    private String txtCancel, txtDefine;//传空则用默认字符
+    private String title;
+    private String content;
+    private String txtCancel, txtDefine;
 
     public MsgCenterDialog(Context context, String title, String content,
                            String txtCancel, String txtDefine) {
@@ -25,8 +24,6 @@ public class MsgCenterDialog extends Dialog implements View.OnClickListener {
         Window window = getWindow();
         if (window != null) {
             window.setWindowAnimations(R.style.picker_dialog_anim);
-            // 要在setContentView之后调用
-            // 要在onCreate里设置，否则如果style设置了windowIsFloating=true，会变成-2，-2？
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.WRAP_CONTENT);
             window.setGravity(Gravity.CENTER);
@@ -58,7 +55,6 @@ public class MsgCenterDialog extends Dialog implements View.OnClickListener {
             txtClickDefine.setText(txtDefine);
         }
     }
-
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.txt_click_cancel) {
@@ -71,13 +67,10 @@ public class MsgCenterDialog extends Dialog implements View.OnClickListener {
             }
         }
     }
-
-    //回调
     public interface onDialogClickListener {
         void onCancelClick(View v);
         void onDefineClick(View v);
     }
-
     private onDialogClickListener mDialogClickListener;
 
     public void setDialogClickListener(onDialogClickListener dialogClickListener) {
